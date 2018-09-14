@@ -1,9 +1,14 @@
 <?php
-require_once __DIR__."/../../vendor/autoload.php";
+use \JordyvD\AtomPhpTools\PhpClass;
+use \JordyvD\AtomPhpTools\ConstructorProperty;
+
+require_once __DIR__."/../../../vendor/autoload.php";
 
 // $activeFilePath = $argv[1];
 $activeFilePath = "/Users/jordyvandomselaar/workspace/atom/php-tools/test-files/test.php";
 $classConstructorParameters = getClassConstructorParameters($activeFilePath);
+
+var_export($classConstructorParameters);
 
 /**
  * Get all classes with the parameters in their constructors.
@@ -12,7 +17,7 @@ $classConstructorParameters = getClassConstructorParameters($activeFilePath);
  */
 function getClassConstructorParameters(string $filePath): array
 {
-    $parsedFile = new \Go\ParserReflection\ReflectionFile($activeFilePath);
+    $parsedFile = new \Go\ParserReflection\ReflectionFile($filePath);
 
     return array_reduce($parsedFile->getFileNamespaces(), function ($carrier, $namespace) {
         // New array with namespaces as keys, and classes in the namespaces as values
@@ -23,15 +28,12 @@ function getClassConstructorParameters(string $filePath): array
                 if ($method->getName() !== "__construct") {
                     return $carrierB;
                 }
-                // Array with parameters as keys and name + type of parameter as values
-                return array_reduce($method->getParameters(), function ($carrierC, $parameter) {
-                        $carrierC['constructor'][$parameter->getName()] = [
-                            'name' => $parameter->getName(),
-                            'type' => (string)$parameter->getType()
-                        ];
 
-                        return $carrierC;
-                }, ['constructor' => []]);
+                $parameters = array_map(function ($parameter) {
+                    return new ConstructorProperty($parameter->getName(), (string)$parameter->getType());
+                }, $method->getParameters());
+
+                return new PhpClass($class->getName(), $parameters);
             }, []);
 
             return $carrierA;

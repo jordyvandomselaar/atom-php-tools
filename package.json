@@ -14,5 +14,10 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
+  },
+  "autoload": {
+      "psr-4": {
+          "JordyvD\\AtomPhpTools\\": "lib/php/src"
+      }
   }
 }
