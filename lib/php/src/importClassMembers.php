@@ -1,14 +1,32 @@
 <?php
 use \JordyvD\AtomPhpTools\PhpClass;
-use \JordyvD\AtomPhpTools\ConstructorParameter;
+use \JordyvD\AtomPhpTools\Parameter;
+use JordyvD\AtomPhpTools\ClassPropertyGenerator;
 
 require_once __DIR__."/../../../vendor/autoload.php";
 
 // $activeFilePath = $argv[1];
 $activeFilePath = "/Users/jordyvandomselaar/workspace/atom/php-tools/test-files/test.php";
 $classConstructorParameters = getClassConstructorParameters($activeFilePath);
+$classesWithProperties = getClassesWithProperties($classConstructorParameters);
 
-var_export($classConstructorParameters);
+$newFileContents = file_get_contents($activeFilePath);
+foreach ($classesWithProperties as $class) {
+    $newFileContents = ClassPropertyGenerator::addPropertiesToClassDeclaration($newFileContents, $class->name, $class->getConstructorParametersNotInProperties());
+}
+
+echo $newFileContents;
+
+function getClassesWithProperties(array $classes)
+{
+        return array_map(function (PhpClass $class) {
+            $class->classProperties = array_map(function (ReflectionProperty $property) {
+                return new Parameter($property->getName(), '');
+            }, $class->ref->getProperties());
+
+            return $class;
+        }, $classes);
+}
 
 /**
  * Get all classes with the parameters in their constructors.
@@ -30,10 +48,10 @@ function getClassConstructorParameters(string $filePath): array
                 }
 
                 $parameters = array_map(function ($parameter) {
-                    return new ConstructorParameter($parameter->getName(), (string)$parameter->getType());
+                    return new Parameter($parameter->getName(), (string)$parameter->getType());
                 }, $method->getParameters());
 
-                return new PhpClass($class->getName(), ...$parameters);
+                return new PhpClass($class->getName(), $parameters, $class, []);
             }, []);
 
             return $carrierA;
