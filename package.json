@@ -1,10 +1,9 @@
- {
+{
   "name": "php-tools",
   "main": "./lib/php-tools",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Bunch of useful PHP tools you might expect in an IDE.",
-  "keywords": [
-  ],
+  "keywords": [],
   "activationCommands": {
     "atom-workspace": "php-tools:insert-class-members"
   },
@@ -13,6 +12,5 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
