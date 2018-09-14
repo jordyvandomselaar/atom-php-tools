@@ -1,14 +1,14 @@
  {
   "name": "php-tools",
   "main": "./lib/php-tools",
-  "version": "0.0.0",
-  "description": "A short description of your package",
+  "version": "0.1.0",
+  "description": "Bunch of useful PHP tools you might expect in an IDE.",
   "keywords": [
   ],
   "activationCommands": {
-    "atom-workspace": "php-tools:insert-class-member"
+    "atom-workspace": "php-tools:insert-class-members"
   },
-  "repository": "https://github.com/atom/php-tools",
+  "repository": "https://github.com/jordyvandomselaar/atom-php-tools",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
