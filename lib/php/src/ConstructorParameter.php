@@ -2,7 +2,7 @@
 
 namespace JordyvD\AtomPhpTools;
 
-class ConstructorProperty
+class ConstructorParameter
 {
     /** @var string **/
     public $name;

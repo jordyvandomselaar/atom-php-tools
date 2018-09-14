@@ -1,6 +1,6 @@
 <?php
 use \JordyvD\AtomPhpTools\PhpClass;
-use \JordyvD\AtomPhpTools\ConstructorProperty;
+use \JordyvD\AtomPhpTools\ConstructorParameter;
 
 require_once __DIR__."/../../../vendor/autoload.php";
 
@@ -23,17 +23,17 @@ function getClassConstructorParameters(string $filePath): array
         // New array with namespaces as keys, and classes in the namespaces as values
         return array_reduce($namespace->getClasses(), function ($carrierA, $class) {
             // Array with class as key and every method as value
-            $carrierA[$class->getName()] = array_reduce($class->getMethods(), function ($carrierB, $method) {
+            $carrierA[$class->getName()] = array_reduce($class->getMethods(), function ($carrierB, $method) use ($class) {
                 // We only want the constructors
                 if ($method->getName() !== "__construct") {
                     return $carrierB;
                 }
 
                 $parameters = array_map(function ($parameter) {
-                    return new ConstructorProperty($parameter->getName(), (string)$parameter->getType());
+                    return new ConstructorParameter($parameter->getName(), (string)$parameter->getType());
                 }, $method->getParameters());
 
-                return new PhpClass($class->getName(), $parameters);
+                return new PhpClass($class->getName(), ...$parameters);
             }, []);
 
             return $carrierA;
