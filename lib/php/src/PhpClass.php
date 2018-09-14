@@ -7,12 +7,12 @@ class PhpClass
     /** @var string **/
     public $name;
 
-    /** @var ConstructorProperty[] */
-    public $constructorProperties;
+    /** @var ConstructorParameter[] */
+    public $constructorParameters;
 
-    public function __construct(string $name, ConstructorParameter ...$constructorProperties)
+    public function __construct(string $name, ConstructorParameter ...$constructorParameters)
     {
         $this->name = $name;
-        $this->constructorProperties = $constructorProperties;
+        $this->constructorProperties = $constructorParameters;
     }
 }
