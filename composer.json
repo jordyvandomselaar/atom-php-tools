@@ -1,0 +1,14 @@
+{
+    "name": "jordyvandomselaar/php-tools",
+    "type": "libary",
+    "license": "mit",
+    "authors": [
+        {
+            "name": "Jordy van Domselaar",
+            "email": "jordy@deinternetjongens.nl"
+        }
+    ],
+    "require": {
+        "goaop/parser-reflection": "^1.4"
+    }
+}

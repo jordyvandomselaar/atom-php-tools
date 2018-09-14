@@ -1,0 +1,18 @@
+ {
+  "name": "php-tools",
+  "main": "./lib/php-tools",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "php-tools:insert-class-member"
+  },
+  "repository": "https://github.com/atom/php-tools",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
