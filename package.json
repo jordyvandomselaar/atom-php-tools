@@ -1,7 +1,7 @@
  {
   "name": "php-tools",
   "main": "./lib/php-tools",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Bunch of useful PHP tools you might expect in an IDE.",
   "keywords": [
   ],
